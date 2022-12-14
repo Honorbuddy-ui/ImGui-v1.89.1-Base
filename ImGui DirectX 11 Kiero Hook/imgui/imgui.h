@@ -66,7 +66,7 @@ Index of this file:
 #include <stdarg.h>                 // va_list, va_start, va_end
 #include <stddef.h>                 // ptrdiff_t, NULL
 #include <string.h>                 // memset, memmove, memcpy, strlen, strchr, strcpy, strcmp
-#include <math.h>
+#include "../structs/struct.h"
 
 // Define attributes of all API symbols declarations (e.g. for DLL under Windows)
 // IMGUI_API is used for core imgui functions, IMGUI_IMPL_API is used for the default backends files (imgui_impl_xxx.h)
@@ -248,36 +248,6 @@ typedef void    (*ImGuiSizeCallback)(ImGuiSizeCallbackData* data);              
 typedef void*   (*ImGuiMemAllocFunc)(size_t sz, void* user_data);               // Function signature for ImGui::SetAllocatorFunctions()
 typedef void    (*ImGuiMemFreeFunc)(void* ptr, void* user_data);                // Function signature for ImGui::SetAllocatorFunctions()
 
-
-struct Vector2
-{
-    float x, y;
-    Vector2 operator+(int i) { return Vector2(x + i, y + i); }
-    Vector2 operator-(int i) { return Vector2(x - i, y - i); }
-    Vector2 operator*(int i) { return Vector2(x * i, y * i); }
-    Vector2 operator/(int i) { return Vector2(x / i, y / i); }
-
-    Vector2 operator+(Vector2 vec) { return Vector2(x + vec.x, y + vec.y); }
-    Vector2 operator-(Vector2 vec) { return Vector2(x - vec.x, y - vec.y); }
-    Vector2 operator*(Vector2 vec) { return Vector2(x * vec.x, y * vec.y); }
-    Vector2 operator/(Vector2 vec) { return Vector2(x / vec.x, y / vec.y); }
-    float CenterDistance(Vector2 screen) { return float(sqrtf(powf(screen.x - x, 2.0f) + powf(screen.y - y, 2.0f))); }
-};
-struct Vector3 {
-    float x, y, z;
-    Vector3 operator+(int i) { return Vector3(x + i, y + i, z + i); }
-    Vector3 operator-(int i) { return Vector3(x - i, y - i, z - i); }
-    Vector3 operator*(int i) { return Vector3(x * i, y * i, z * i); }
-    Vector3 operator/(int i) { return Vector3(x / i, y / i, z / i); }
-
-    Vector3 operator+(Vector3 vec) { return Vector3(x + vec.x, y + vec.y, z + vec.z); }
-    Vector3 operator-(Vector3 vec) { return Vector3(x - vec.x, y - vec.y, z - vec.z); }
-    Vector3 operator*(Vector3 vec) { return Vector3(x * vec.x, y * vec.y, z * vec.z); }
-    Vector3 operator/(Vector3 vec) { return Vector3(x / vec.x, y / vec.y, z / vec.z); }
-
-    inline float Distance(Vector3 v) { return float(sqrtf(powf(v.x - x, 2.0) + powf(v.y - y, 2.0) + powf(v.z - z, 2.0))); }
-    
-};
 
 // ImVec2: 2D vector used to store positions, sizes etc. [Compile-time configurable type]
 // This is a frequently used type in the API. Consider using IM_VEC2_CLASS_EXTRA to create implicit cast from/to our preferred type.

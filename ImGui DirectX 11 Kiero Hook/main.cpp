@@ -26,12 +26,13 @@ void InitImGui(){
 	ImGui_ImplDX11_Init(pDevice, pContext);
 }
 
-LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+LRESULT _stdcall WndProc(const HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+	if (b::bMenu) {
+		ImGui_ImplWin32_WndProcHandler(hwnd, uMsg, wParam, lParam);
 
-	if (true && ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
 		return true;
-
-	return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
+	}
+	return CallWindowProc(oWndProc, hwnd, uMsg, wParam, lParam);
 }
 
 bool init = false;
@@ -59,7 +60,8 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT 
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	RenderMenu();
+	RenderMenu(Key::Key);
+	Unload(Key::UnloadKey);
 
 	ImGui::Render();
 

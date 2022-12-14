@@ -2,6 +2,7 @@
 #include "menu.h"
 #include "../imgui/imgui.h"
 #include "Classes.h"
+#include "../kiero/minhook/include/MinHook.h"
 //bool
 namespace b {
     bool bMenu = true;
@@ -20,9 +21,15 @@ namespace f {
 //keybinds
 namespace Key {
     int Key = VK_INSERT;
+    int UnloadKey = VK_END;
 }
-
-void RenderMenu() {
+void Unload(int key) {
+    if (GetAsyncKeyState(key)) {
+        kiero::shutdown();
+        MH_DisableHook(0);
+    }
+}
+void RenderMenu(int key) {
 #pragma region Styling
     ImGuiStyle* style = &ImGui::GetStyle();
 
@@ -37,7 +44,7 @@ void RenderMenu() {
 #pragma endregion
 
    
-    if (GetAsyncKeyState(Key::Key) & 1) b::bMenu = !b::bMenu;//Open Menu Bind
+    if (GetAsyncKeyState(key) & 1) b::bMenu = !b::bMenu;//Open Menu Bind
     
     Vector2 vec{i::iInt, i::iInt};
     Vector2 vec2{f::fFloat, f::fFloat};

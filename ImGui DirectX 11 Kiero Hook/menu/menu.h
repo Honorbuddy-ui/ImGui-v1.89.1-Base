@@ -19,5 +19,7 @@ namespace f {
 //keybind
 namespace Key {
     extern int Key;
+    extern int UnloadKey;
 }
-void RenderMenu();
+void Unload(int key);
+void RenderMenu(int key);
